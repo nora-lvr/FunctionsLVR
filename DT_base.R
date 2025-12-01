@@ -90,11 +90,13 @@ fxn_DT_base<-function(df){
 
 ## fxn2
 fxn_DT_base2 <- function(df){
+  
   DT::datatable(
     df,
-    extensions = 'Buttons',
-    class = 'cell-border hoover compact nowrap',
-    caption = '',
+    extensions = "Buttons",
+    class = "cell-border hoover compact nowrap",
+    caption = "",
+    
     options = list(
       fixedColumns = TRUE,
       autoWidth = TRUE,
@@ -102,18 +104,34 @@ fxn_DT_base2 <- function(df){
       paging = TRUE,
       searching = TRUE,
       
-      # Buttons at the BOTTOM
-      dom = 'SlfrtpiB',
+      # Custom DOM: button container "bottom_buttons"
+      dom = 
+        "<'dt-top'Slfr>"      %>% 
+        paste0("t",
+               "<'dt-bottom'ip>",
+               "<'dt-buttons-container'B>"),
       
-      # Show 25 rows by default
       pageLength = 25,
-      
-      buttons = c('copy', 'csv', 'excel')
+      buttons = c("copy", "csv", "excel")
     ),
+    
     filter = list(
-      position = 'top',
+      position = "top",
       clear = FALSE
     ),
-    rownames = FALSE
+    rownames = FALSE,
+    
+    # Add CSS to center buttons
+    callback = JS("
+      $('.dt-buttons-container').css({
+        'text-align': 'center',
+        'padding-top': '1em'
+      });
+      $('.dt-buttons').css({
+        'float': 'none',
+        'display': 'inline-block'
+      });
+    ")
   )
 }
+
