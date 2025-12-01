@@ -87,3 +87,33 @@ fxn_DT_base<-function(df){
 #   )
   
 }
+
+## fxn2
+fxn_DT_base2 <- function(df){
+  DT::datatable(
+    df,
+    extensions = 'Buttons',
+    class = 'cell-border hoover compact nowrap',
+    caption = '',
+    options = list(
+      fixedColumns = TRUE,
+      autoWidth = TRUE,
+      ordering = TRUE,
+      paging = TRUE,
+      searching = TRUE,
+      
+      # Buttons at the BOTTOM
+      dom = 'SlfrtpiB',
+      
+      # Show 25 rows by default
+      pageLength = 25,
+      
+      buttons = c('copy', 'csv', 'excel')
+    ),
+    filter = list(
+      position = 'top',
+      clear = FALSE
+    ),
+    rownames = FALSE
+  )
+}
